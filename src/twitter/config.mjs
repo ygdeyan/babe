@@ -77,14 +77,14 @@ const finalizeMediaUpload = (client, mediaId) => {
     })
 }
 
-const postReplyWithMedia = (client, mediaFilePath, replyTweet) => {
+const postReplyWithMedia = (client, mediaFilePath, replyTweet, replyText) => {
 
     initMediaUpload(client, mediaFilePath)
         .then((mediaId) => appendMedia(client, mediaId, mediaFilePath))
         .then((mediaId) => finalizeMediaUpload(client, mediaId))
         .then((mediaId) => {
             const statusObj = {
-                status: "Hi @" + replyTweet.user.screen_name + ", here's your video file!",
+                status: "Hi @" + replyTweet.user.screen_name + ", here's the message. " + replyText,
                 in_reply_to_status_id: replyTweet.id_str,
                 media_ids: mediaId
             }
