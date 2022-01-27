@@ -30,9 +30,7 @@ const onData = async (tweet) => {
   }
 
   console.log(promptText);
-  const response = await completePrompt(openai, "text-curie-001", promptText);
-  console.log(response.data.choices);
-  const ouput = response.data.choices[0].text;
+  const ouput = await completePrompt(openai, "text-curie-001", promptText);
   console.log(ouput);
 
   console.log("Replying to tweet with video.");
