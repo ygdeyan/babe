@@ -7,8 +7,7 @@ const openai = authOpenai();
 
 console.log("Filtering Twitter text.");
 const isUnsave = await filterPrompt(openai, twitterText);
-
-if (isUnsave){
+if (isUnsave == 0){
   console.log("Twitter text safe. extracting info.");
   const extractedInfo = await extractPrompt(openai, twitterText);
   console.log(extractedInfo);
