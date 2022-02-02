@@ -35,7 +35,41 @@ const completePrompt = async (openaiClient, model, promptText = undefined) => {
     "best_of": 2
   });
 
-  return response;
+  return response.data.choices[0].text;
 }
 
-export { authOpenai, completePrompt }
+const filterPrompt = async (openaiClient, promptText = undefined) => {
+
+  if (!promptText) return
+
+  const response = await openaiClient.createCompletion("content-filter-alpha", {
+    "prompt": "<|endoftext|>"+promptText+"\n--\nLabel:",
+    "temperature": 0,
+    "max_tokens": 1,
+    "top_p": 1,
+    "frequency_penalty": 0,
+    "presence_penalty": 0,
+    "logprobs": 10
+  });
+
+  return response.data.choices[0].text;
+}
+
+const extractPrompt = async (openaiClient, promptText = undefined) => {
+
+  if (!promptText) return
+
+  const response = await openaiClient.createCompletion("text-babbage-001", {
+    "prompt": "Q: Babe, send one to Steve. Loves chips and cheese A: Steve, chips, cheese Q: " + promptText + " A:",
+    "temperature": 0,
+    "max_tokens": 20,
+    "top_p": 1,
+    "frequency_penalty": 0,
+    "presence_penalty": 0,
+    "best_of": 1
+  });
+
+  return response.data.choices[0].text;
+}
+
+export { authOpenai, completePrompt, filterPrompt, extractPrompt}

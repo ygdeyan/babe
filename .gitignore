@@ -4,7 +4,7 @@ dist
 .env
 yarn.lock
 package-lock.json
-
+src/assets
 
 # Ignore the output video from Git but not videos you import into src/.
 out
